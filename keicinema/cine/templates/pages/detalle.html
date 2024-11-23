@@ -36,10 +36,6 @@
 {% block body %}
 <div class="container mt-5 mb-5">
     <!-- Trailer Section -->
-    {% comment %} <iframe width="560" height="315" src="{{pelicula.trailer_url}}" title="trailer {{pelicula.titulo}}"
-        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
-        allowfullscreen>
-    </iframe> {% endcomment %}
     <div class="position-relative mb-4" style="height: 400px;">
         
         <iframe height="400px" src="{{pelicula.trailer_url}}" title="trailer {{pelicula.titulo}}" class="w-100 h-100 object-fit-cover" frameborder="0" 
@@ -83,29 +79,33 @@
             <div class="mb-4">
                 <h2 class="h4 mb-3">Horarios Disponibles</h2>
                 <div class="d-flex gap-4 mb-3">
+                    {% for dia, horarios in funciones_por_dia.items %}
                     <div class="text-center">
-                        <div class="fw-bold">JUE.</div>
-                        <div class="small">21 NOV. 2024</div>
+                        <div class="fw-bold">{{ dia|date:"D" | upper }}</div>
+                        <div class="small">{{ dia }}</div>
                     </div>
-                    <div class="text-center">
-                        <div class="fw-bold">VIE.</div>
-                        <div class="small">22 NOV. 2024</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="fw-bold">LUN.</div>
-                        <div class="small">25 NOV. 2024</div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
             <!-- Cine -->
             <div>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-dark">17:20</button>
-                    <button class="btn btn-outline-dark">20:00</button>
+                {% for dia, horarios in funciones_por_dia.items %}
+                <div class="mb-4">
+                    <h5 class="mb-2">Funciones para {{ dia }}</h5>
+                    <div class="d-flex gap-2">
+                        {% for hora in horarios %}
+                        <button class="btn btn-outline-dark">{{ hora|time:"H:i" }}</button>
+                        {% endfor %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
+
         </div>
     </div>
 </div>
+
+{% include "../widget/shopBanner.html" %}
+   
 {% endblock %}

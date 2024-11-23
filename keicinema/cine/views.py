@@ -33,9 +33,18 @@ def compras(request):
 
 def detalle(request, id):
     pelicula = Peliculas.objects.get(pk=id)
-    funcion = Funciones.objects.get(id_peliculas=id)
+    funciones = Funciones.objects.filter(id_peliculas=id)
 
-    return render (request, "pages/detalle.html", {'pelicula': pelicula, 'funcion': funcion})
+    # Agrupar por días
+    funciones_por_dia = {}
+    for funcion in funciones:
+        fecha = funcion.fecha_funcion.strftime("%d-%b-%Y")
+        if fecha not in funciones_por_dia:
+            funciones_por_dia[fecha] = []
+        funciones_por_dia[fecha].append(funcion.hora_funcion)
+
+    return render(request, "pages/detalle.html", {'pelicula': pelicula, 'funciones_por_dia': funciones_por_dia})
+
 
 @require_http_methods(["GET", "POST"])
 def purchase_process(request):

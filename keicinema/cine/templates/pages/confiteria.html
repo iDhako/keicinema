@@ -58,16 +58,16 @@
     <div class="shop_top">
       <div class="container">
           <div class="row shop_box-top">
-            {% for  Confiteria in confiteria %}   
+            {% for  x in confiteria %}   
               <div class="col-md-3 shop_box">
                   <img src="/static/assets/images/combo1.jpg" class="img-responsive" alt=""/>
                   <div class="shop_desc">
-                      <h3><a href="#">{{confiteria.nombre_producto}}</a></h3>
-                      <p>{{confiteria.descripcion_producto}}</p>
-                      <span class="actual">{{confiteria.precio_producto}}</span><br>
+                      <h3><a href="#">{{x.nombre_producto}}</a></h3>
+                      <p>{{x.descripcion_producto}}</p>
+                      <span class="actual">{{x.precio_producto}}</span><br>
 
                   <ul class="prosuct-qty">
-                    <span>{{confiteria.stock_producto}}</span>
+                    <span>{{x.stock_producto}}</span>
                     <select>
                         <option>1</option>
                         <option>2</option>
@@ -78,15 +78,15 @@
                     </select>
                 </ul>
                 <ul class="buttons">
-                    <li class="cart"><a href="#">Add To Cart</a></li>
+                    <li class="cart"><a href="#">Agregar al carro</a></li>
                     <div class="clear"> </div>
                 </ul>
                 
-                  </div>
               </a></div>
               {% endfor %}
           </div>
         </div>
       </div>
     </div>
+</div>
 {% endblock %}
