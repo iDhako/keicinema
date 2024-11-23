@@ -1,0 +1,111 @@
+{% extends "layout/plantillamain.html" %}
+{% load static %}
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+    $(".dropdown img.flag").addClass("flagvisibility");
+
+    $(".dropdown dt a").click(function() {
+        $(".dropdown dd ul").toggle();
+    });
+                
+    $(".dropdown dd ul li a").click(function() {
+        var text = $(this).html();
+        $(".dropdown dt a span").html(text);
+        $(".dropdown dd ul").hide();
+        $("#result").html("Selected value is: " + getSelectedValue("sample"));
+    });
+                
+    function getSelectedValue(id) {
+        return $("#" + id).find("dt a span.value").html();
+    }
+
+    $(document).bind('click', function(e) {
+        var $clicked = $(e.target);
+        if (! $clicked.parents().hasClass("dropdown"))
+            $(".dropdown dd ul").hide();
+    });
+
+
+    $("#flagSwitcher").click(function() {
+        $(".dropdown img.flag").toggleClass("flagvisibility");
+    });
+});
+</script>
+{% endblock %}
+{% block body %}
+<div class="container mt-5 mb-5">
+    <!-- Trailer Section -->
+    {% comment %} <iframe width="560" height="315" src="{{pelicula.trailer_url}}" title="trailer {{pelicula.titulo}}"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"
+        allowfullscreen>
+    </iframe> {% endcomment %}
+    <div class="position-relative mb-4" style="height: 400px;">
+        
+        <iframe height="400px" src="{{pelicula.trailer_url}}" title="trailer {{pelicula.titulo}}" class="w-100 h-100 object-fit-cover" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="row">
+
+        <!-- Poster -->
+        <div class="col-md-4 mb-4">
+            <img src="{{pelicula.imagen_url}}" alt=" img {{pelicula.titulo}} " class="img-fluid shadow">
+        </div>
+
+        <!-- Movie Details -->
+        <div class="col-md-8">
+            <h1 class="mb-3">{{pelicula.titulo}}</h1>
+            
+            <div class="mb-4">
+                <h2 class="h4 mb-2">Título Original</h2>
+                <p>{{pelicula.titulo_original}}</p>
+            </div>
+            
+            <div class="mb-4">
+                <h2 class="h4 mb-2">Director</h2>
+                <p>{{pelicula.director}}</p>
+            </div>
+            
+            <div class="mb-4">
+                <h2 class="h4 mb-2">Reparto</h2>
+                <p>{{pelicula.reparto}}</p>
+            </div>
+            
+            <div class="mb-4">
+                <h2 class="h4 mb-2">Sinopsis</h2>
+                <p class="text-justify">
+                    {{pelicula.sinopsis}}
+                </p>
+            </div>
+
+            <!-- Horarios -->
+            <div class="mb-4">
+                <h2 class="h4 mb-3">Horarios Disponibles</h2>
+                <div class="d-flex gap-4 mb-3">
+                    <div class="text-center">
+                        <div class="fw-bold">JUE.</div>
+                        <div class="small">21 NOV. 2024</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">VIE.</div>
+                        <div class="small">22 NOV. 2024</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">LUN.</div>
+                        <div class="small">25 NOV. 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cine -->
+            <div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-dark">17:20</button>
+                    <button class="btn btn-outline-dark">20:00</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
